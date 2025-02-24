@@ -1,6 +1,9 @@
+<script lang="ts"></script>
+
 <template>
   <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
+    <!-- <NuxtRouteAnnouncer /> -->
+    <AddTask />
+    <ListTasks />
   </div>
 </template>
