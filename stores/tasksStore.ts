@@ -3,8 +3,20 @@ import { defineStore } from "pinia";
 export const useTasksStore = defineStore("tasks", {
   state: () => ({
     tasks: [] as TaskInfo[],
-    // tasks: [{ id: 1, name: "Ir a comprar", completed: false }],
   }),
+  persist: true,
+
+  getters: {
+    filterByCompleted: (state) => {
+      return state.tasks.filter((task) => task.completed == true);
+    },
+    filterByPending: (state) => {
+      return state.tasks.filter((task) => task.completed == false);
+    },
+    filterByAll: (state) => {
+      return state.tasks;
+    },
+  },
 
   actions: {
     addTask(name: string) {
@@ -20,12 +32,32 @@ export const useTasksStore = defineStore("tasks", {
       this.tasks = this.tasks.filter((task) => task.id !== id);
     },
 
+    deleteAllTask() {
+      this.tasks = [];
+    },
+
     changeTaskStatus(id: number, status: boolean) {
       const task = this.tasks.find((task) => task.id == id);
       if (task) {
         task.completed = status;
         this.tasks;
       }
+    },
+    changeAllTasksStatus() {
+      this.tasks.map((task) => {
+        task.completed = !task.completed;
+      });
+    },
+
+    changeTaskName(id: number, name: string) {
+      const task = this.tasks.find((task) => task.id == id);
+      if (task) {
+        task.name = name;
+      }
+    },
+
+    getTaskById(id: number) {
+      return this.tasks.find((task) => task.id == id);
     },
   },
 });
