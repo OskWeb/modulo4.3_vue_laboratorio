@@ -15,6 +15,11 @@
       Guardar cambios
     </button>
   </form>
+  <AlertSaved
+    message="Se han guardado los cambios"
+    :visibility="alertVisible"
+    alertType="alertSuccess"
+  />
 </template>
 
 <script setup lang="ts">
@@ -32,12 +37,7 @@ const { taskId } = props;
 const store = useTasksStore();
 
 const name = ref("");
-
-const handleEditTask = () => {
-  if (name.value.trim() !== "") {
-    store.changeTaskName(Number(taskId), name.value);
-  }
-};
+const alertVisible = ref(false);
 
 onMounted(async () => {
   const task = store.getTaskById(Number(taskId));
@@ -45,6 +45,16 @@ onMounted(async () => {
     name.value = task.name;
   }
 });
+
+const handleEditTask = () => {
+  if (name.value.trim() !== "") {
+    store.changeTaskName(Number(taskId), name.value);
+    alertVisible.value = true;
+    setTimeout(() => {
+      alertVisible.value = false;
+    }, 5000);
+  }
+};
 </script>
 
 <style></style>

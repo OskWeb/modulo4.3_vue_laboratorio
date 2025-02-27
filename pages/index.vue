@@ -14,11 +14,14 @@ const handleSelect = (value: any) => {
 </template>
 
 <style>
+button {
+  cursor: pointer;
+}
 body {
   position: relative;
 }
 .mainBox {
-  width: 600px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -36,7 +39,19 @@ body {
 }
 
 @media (max-width: 600px) {
-  .mainBox {
+  .tasksHeader {
+    flex-direction: column;
+  }
+  .tasksHeader h2 {
+    width: 100%;
+  }
+  .tasksHeader .globalOptions {
+    width: 100%;
+  }
+  .tasksHeader .globalOptions button {
+    flex: 1;
+  }
+  .tasksHeader .mainBox {
     width: 100%;
   }
   .task {
